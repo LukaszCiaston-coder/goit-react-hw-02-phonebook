@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import styles from './ContactForm.module.css';
+import styles from '../ContactForm/ContactForm.module.css';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = ({ onSubmit, onFilter }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const [filter, setFilter] = useState('');
 
   const handleChangeName = (event) => {
     setName(event.target.value);
@@ -11,6 +12,12 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleChangeNumber = (event) => {
     setNumber(event.target.value);
+  };
+
+  const handleChangeFilter = (event) => {
+    const filterValue = event.target.value;
+    setFilter(filterValue);
+    onFilter(filterValue.toLowerCase());
   };
 
   const handleSubmit = (event) => {
@@ -49,7 +56,16 @@ const ContactForm = ({ onSubmit }) => {
         />
       </label>
       <button type="submit" className={styles.button}>Add Contact</button>
-    </form>
+      <label className={styles.label}>
+        Filter by Name:
+        <input
+          type="text"
+          value={filter}
+          onChange={handleChangeFilter}
+          className={styles.input}
+        />
+          </label>
+      </form>
   );
 };
 

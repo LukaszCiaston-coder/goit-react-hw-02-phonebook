@@ -7,7 +7,8 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
-    number: '' // Dodane pole "number" w stanie komponentu
+    number: '', 
+    filter: '' 
   };
 
   addContact = (newContact) => {
@@ -22,14 +23,22 @@ export class App extends Component {
     }));
   };
 
+  handleFilter = (filterValue) => {
+    this.setState({ filter: filterValue });
+  };
+
   render() {
-    const { contacts } = this.state;
+    const { contacts, filter } = this.state;
+    
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
 
     return (
       <div>
         <h1>Contacts</h1>
-        <ContactForm onSubmit={this.addContact} />
-        <ContactList contacts={contacts} />
+        <ContactForm onSubmit={this.addContact} onFilter={this.handleFilter} />
+        <ContactList contacts={filteredContacts} />
       </div>
     );
   }
