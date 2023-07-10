@@ -6,16 +6,19 @@ import ContactForm from './ContactForm/ContactForm';
 export class App extends Component {
   state = {
     contacts: [],
-    name: ''
+    name: '',
+    number: '' // Dodane pole "number" w stanie komponentu
   };
 
-  addContact = (newName) => {
-    const newContact = {
+  addContact = (newContact) => {
+    const { name, number } = newContact;
+    const contact = {
       id: nanoid(),
-      name: newName
+      name,
+      number
     };
     this.setState((prevState) => ({
-      contacts: [...prevState.contacts, newContact]
+      contacts: [...prevState.contacts, contact]
     }));
   };
 
