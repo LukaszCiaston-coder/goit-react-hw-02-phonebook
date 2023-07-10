@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import  ContactForm  from './ContactForm/ContactForm';
-import  ContactList  from './ContactList/ContactList';
-import  Filter  from './Filter/Filter';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
+import Notiflix from 'notiflix';
 
 export class App extends Component {
   state = {
@@ -12,6 +13,13 @@ export class App extends Component {
 
   addContact = (newContact) => {
     const { name, number } = newContact;
+    const isContactExists = this.state.contacts.some(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (isContactExists) {
+      Notiflix.Notify.failure('This contact already exists!');
+      return;
+    }
     const contact = {
       id: nanoid(),
       name,
