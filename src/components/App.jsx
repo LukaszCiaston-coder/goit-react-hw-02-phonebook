@@ -4,6 +4,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import Notiflix from 'notiflix';
+import './App.css';
 
 export class App extends Component {
   state = {
@@ -33,6 +34,11 @@ export class App extends Component {
   handleFilterChange = (filterValue) => {
     this.setState({ filter: filterValue });
   };
+    deleteContact = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((contact) => contact.id !== contactId)
+    }));
+  };
 
   render() {
     const { contacts, filter } = this.state;
@@ -42,13 +48,13 @@ export class App extends Component {
     );
 
     return (
-      <div>
+       <div className="appContainer">
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={filteredContacts} />
+        <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
       </div>
     );
   }
