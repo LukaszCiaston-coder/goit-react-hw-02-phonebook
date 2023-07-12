@@ -14,7 +14,7 @@ const Filter=({value, onChange})=> {
              value={value}
              onChange={handleChange}
              className={styles.input}
-             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+             pattern="^[^[a-zA-Za]+(([' \-][a-zA-Za])?[a-zA-Za]*)*$"
              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
              required
            />
